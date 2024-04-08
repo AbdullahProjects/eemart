@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1021926762710",
+    "project_id": "eemart-26d2c",
+    "storage_bucket": "eemart-26d2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021926762710:android:cf92d34438d3b29ca38177",
+        "android_client_info": {
+          "package_name": "com.example.eemart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADdg5XMdVYBZQIC0u6eqYWYmQH_7wI1Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
