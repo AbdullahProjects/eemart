@@ -62,4 +62,6 @@ const itemDetailButtonList = [
   "Support Policy"
 ];
 
-// 
+// profile screen
+const profileButtonList = ["My orders", "My wishlist", "Messages"];
+const profileButtonIcon = [icOrder, icOrders, icMessages];
