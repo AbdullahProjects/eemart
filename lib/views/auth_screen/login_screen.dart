@@ -27,78 +27,89 @@ class LoginScreen extends StatelessWidget {
               10.heightBox,
               "Login to $appname".text.white.fontFamily(bold).size(18).make(),
               15.heightBox,
-              Column(
-                children: [
-                  CustomTextField(
-                      hint: emailhint,
-                      title: email,
-                      isPass: false,
-                      controller: controller.emailController),
-                  CustomTextField(
-                      hint: passwordhint,
-                      title: password,
-                      isPass: true,
-                      controller: controller.passwordController),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                          onPressed: () {}, child: forgetPass.text.make())),
-                  5.heightBox,
-                  OurButton(
-                      title: login,
-                      textcolor: whiteColor,
-                      colour: redColor,
-                      onPress: () async {
-                        await controller
-                            .loginMethod(context: context)
-                            .then((value) {
-                          if (value != null) {
-                            VxToast.show(context,
-                                msg: "Logged in successfully",
-                                bgColor: redColor,
-                                textColor: whiteColor);
-                            Get.offAll(() => const Home());
-                          }
-                        });
-                      }).box.width(context.screenWidth - 50).make(),
-                  5.heightBox,
-                  createNewAccount.text.color(fontGrey).make(),
-                  5.heightBox,
-                  OurButton(
-                      title: signup,
-                      textcolor: redColor,
-                      colour: lightGolden,
-                      onPress: () {
-                        Get.to(() => const SignUpScreen());
-                      }).box.width(context.screenWidth - 50).make(),
-                  10.heightBox,
-                  loginWith.text.color(fontGrey).make(),
-                  5.heightBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                        3,
-                        (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundColor: lightGrey,
-                                child: Image.asset(
-                                  socialIconsList[index],
-                                  width: 30,
+              Obx(
+                () => Column(
+                  children: [
+                    CustomTextField(
+                        hint: emailhint,
+                        title: email,
+                        isPass: false,
+                        controller: controller.emailController),
+                    CustomTextField(
+                        hint: passwordhint,
+                        title: password,
+                        isPass: true,
+                        controller: controller.passwordController),
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                            onPressed: () {}, child: forgetPass.text.make())),
+                    5.heightBox,
+                    // condition; whether Circle progress indicator or Button will show
+                    controller.isLoading.value
+                        ? const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(redColor),
+                          )
+                        : OurButton(
+                            title: login,
+                            textcolor: whiteColor,
+                            colour: redColor,
+                            onPress: () async {
+                              // enable circular progress indicator before starting loading process
+                              controller.isLoading(true);
+                              await controller
+                                  .loginMethod(context: context)
+                                  .then((value) {
+                                if (value != null) {
+                                  VxToast.show(context,
+                                      msg: "Logged in successfully",
+                                      bgColor: redColor,
+                                      textColor: whiteColor);
+                                  Get.offAll(() => const Home());
+                                } else {
+                                  controller.isLoading(false);
+                                }
+                              });
+                            }).box.width(context.screenWidth - 50).make(),
+                    5.heightBox,
+                    createNewAccount.text.color(fontGrey).make(),
+                    5.heightBox,
+                    OurButton(
+                        title: signup,
+                        textcolor: redColor,
+                        colour: lightGolden,
+                        onPress: () {
+                          Get.to(() => const SignUpScreen());
+                        }).box.width(context.screenWidth - 50).make(),
+                    10.heightBox,
+                    loginWith.text.color(fontGrey).make(),
+                    5.heightBox,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          3,
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: lightGrey,
+                                  child: Image.asset(
+                                    socialIconsList[index],
+                                    width: 30,
+                                  ),
                                 ),
-                              ),
-                            )),
-                  )
-                ],
-              )
-                  .box
-                  .white
-                  .rounded
-                  .padding(const EdgeInsets.all(16))
-                  .width(context.screenWidth - 70)
-                  .shadowSm
-                  .make(),
+                              )),
+                    )
+                  ],
+                )
+                    .box
+                    .white
+                    .rounded
+                    .padding(const EdgeInsets.all(16))
+                    .width(context.screenWidth - 70)
+                    .shadowSm
+                    .make(),
+              ),
             ],
           ),
         ),

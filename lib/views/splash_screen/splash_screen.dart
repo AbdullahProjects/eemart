@@ -1,7 +1,8 @@
-
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/views/auth_screen/login_screen.dart';
+import 'package:eemart/views/home_screen/home.dart';
 import 'package:eemart/widgets_common/applogo_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +15,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   changeScreen() {
     Future.delayed(const Duration(seconds: 5), () {
-      Get.to(() => const LoginScreen());
+      // if user already login then go to Home Screen, otherwise go to Login Screen
+      auth.authStateChanges().listen((User? user) {
+        if (user == null && mounted) {
+          Get.to(() => const LoginScreen());
+        } else {
+          Get.to(() => const Home());
+        }
+      });
     });
   }
 
