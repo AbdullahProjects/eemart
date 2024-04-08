@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       "Dummy user".text.fontFamily(semibold).white.make(),
                       5.heightBox,
-                      "customer@eg.com".text.white.make()
+                      "customer@egx.com".text.white.make()
                     ],
                   ),
                 ),
