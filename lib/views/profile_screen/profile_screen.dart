@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
                     );
                   } else {
                     // storing user data
-                    // var data = snapshot.data!.docs[0];
+                    var data = snapshot.data!.docs[0];
 
                     return SafeArea(
                         child: Column(
@@ -45,7 +45,9 @@ class ProfileScreen extends StatelessWidget {
                                 Icons.edit,
                                 color: Colors.white,
                               )).onTap(() {
-                            Get.to(() => const EditProfile());
+                            controller.nameController.text = data["name"];
+                            controller.passController.text = data["password"];
+                            Get.to(() => EditProfile(data: data));
                           }),
                         ),
                         // user details section
@@ -53,8 +55,15 @@ class ProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Row(
                             children: [
+                              // show default image if image not changed
+                              data['imageURL']==''?
                               Image.asset(
                                 imgProfile2,
+                                width: 80,
+                                fit: BoxFit.cover,
+                              ).box.roundedFull.clip(Clip.antiAlias).make():
+                              Image.network(
+                                data["imageURL"],
                                 width: 80,
                                 fit: BoxFit.cover,
                               ).box.roundedFull.clip(Clip.antiAlias).make(),
@@ -63,13 +72,13 @@ class ProfileScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    "Dummy Text"
+                                    "${data["name"]}"
                                         .text
                                         .fontFamily(semibold)
                                         .white
                                         .make(),
                                     5.heightBox,
-                                    "customer@egx.com".text.white.make()
+                                    "${data["email"]}".text.white.make()
                                   ],
                                 ),
                               ),
@@ -98,15 +107,15 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             DetailCart(
                                 width: context.screenWidth / 3.5,
-                                count: "00",
+                                count: data["cart_count"],
                                 title: "in your cart"),
                             DetailCart(
                                 width: context.screenWidth / 3.5,
-                                count: "56",
+                                count: data["wishlist_count"],
                                 title: "your wishlist"),
                             DetailCart(
                                 width: context.screenWidth / 3.5,
-                                count: "2390",
+                                count: data["order_count"],
                                 title: "your orders")
                           ],
                         ),
