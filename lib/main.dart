@@ -8,6 +8,7 @@ void main() async {
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyADdg5XMdVYBZQIC0u6eqYWYmQH_7wI1Qw",
+          storageBucket: "gs://eemart-26d2c.appspot.com",
           appId: "1:1021926762710:android:cf92d34438d3b29ca38177",
           messagingSenderId: "1021926762710",
           projectId: "eemart-26d2c"));

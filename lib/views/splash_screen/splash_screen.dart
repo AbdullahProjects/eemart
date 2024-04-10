@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       // if user already login then go to Home Screen, otherwise go to Login Screen
       auth.authStateChanges().listen((User? user) {
-        if (user == null && mounted) {
+        if (user == null) {
           Get.to(() => const LoginScreen());
         } else {
           Get.to(() => const Home());

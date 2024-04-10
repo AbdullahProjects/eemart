@@ -39,3 +39,6 @@ const searchAnythig = "Search anything...",
     boysGlasses = "Boys Glasses",
     tShirts = "TShirts",
     featuredProduct = "Featured Product";
+
+// edit screen strings
+const oldpass = "Old Password", newpass = "New Password";

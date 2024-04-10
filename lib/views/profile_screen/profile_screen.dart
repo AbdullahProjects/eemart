@@ -32,7 +32,6 @@ class ProfileScreen extends StatelessWidget {
                   } else {
                     // storing user data
                     var data = snapshot.data!.docs[0];
-
                     return SafeArea(
                         child: Column(
                       children: [
@@ -46,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Colors.white,
                               )).onTap(() {
                             controller.nameController.text = data["name"];
-                            controller.passController.text = data["password"];
+                            // controller.passController.text = data["password"];
                             Get.to(() => EditProfile(data: data));
                           }),
                         ),
@@ -56,17 +55,27 @@ class ProfileScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               // show default image if image not changed
-                              data['imageURL']==''?
-                              Image.asset(
-                                imgProfile2,
-                                width: 80,
-                                fit: BoxFit.cover,
-                              ).box.roundedFull.clip(Clip.antiAlias).make():
-                              Image.network(
-                                data["imageURL"],
-                                width: 80,
-                                fit: BoxFit.cover,
-                              ).box.roundedFull.clip(Clip.antiAlias).make(),
+                              data['imageURL'] == ''
+                                  ? Image.asset(
+                                      imgProfile2,
+                                      width: 70,
+                                      height: 70,
+                                      fit: BoxFit.cover,
+                                    )
+                                      .box
+                                      .roundedFull
+                                      .clip(Clip.antiAlias)
+                                      .make()
+                                  : Image.network(
+                                      data["imageURL"],
+                                      width: 70,
+                                      height: 70,
+                                      fit: BoxFit.cover,
+                                    )
+                                      .box
+                                      .roundedFull
+                                      .clip(Clip.antiAlias)
+                                      .make(),
                               5.widthBox,
                               Expanded(
                                 child: Column(
@@ -88,8 +97,8 @@ class ProfileScreen extends StatelessWidget {
                                       side: const BorderSide(
                                           color: Colors.white, width: 1)),
                                   onPressed: () async {
-                                    await Get.put(AuthController())
-                                        .signOutMethod(context);
+                                    await Get.put(AuthController()).signOutMethod(context);
+                                    
                                     Get.offAll(() => const LoginScreen());
                                   },
                                   child: "Logout"
@@ -101,23 +110,26 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         // cards
-                        20.heightBox,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DetailCart(
-                                width: context.screenWidth / 3.5,
-                                count: data["cart_count"],
-                                title: "in your cart"),
-                            DetailCart(
-                                width: context.screenWidth / 3.5,
-                                count: data["wishlist_count"],
-                                title: "your wishlist"),
-                            DetailCart(
-                                width: context.screenWidth / 3.5,
-                                count: data["order_count"],
-                                title: "your orders")
-                          ],
+                        // 20.heightBox,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              DetailCart(
+                                  width: context.screenWidth / 3.5,
+                                  count: data["cart_count"],
+                                  title: "in your cart"),
+                              DetailCart(
+                                  width: context.screenWidth / 3.5,
+                                  count: data["wishlist_count"],
+                                  title: "your wishlist"),
+                              DetailCart(
+                                  width: context.screenWidth / 3.5,
+                                  count: data["order_count"],
+                                  title: "your orders")
+                            ],
+                          ),
                         ),
                         // buttons list
                         ListView.separated(

@@ -1,5 +1,6 @@
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/consts/lists.dart';
+import 'package:eemart/controllers/product_controller.dart';
 import 'package:eemart/views/category_screen/category_details.dart';
 import 'package:eemart/widgets_common/bg_widget.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
+
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
@@ -48,6 +51,7 @@ class CategoryScreen extends StatelessWidget {
                     .outerShadowSm
                     .make()
                     .onTap(() {
+                  controller.getSubCategory(categoryList[index]);
                   Get.to(() => CategoryDetails(title: categoryList[index]));
                 });
               }),

@@ -1,0 +1,81 @@
+{
+    "categories": [
+        {
+            "name": "Women Clothing",
+            "subcategory": [
+                "Weddings & Events",
+                "Tops & Sets",
+                "Watches"
+            ]
+        },
+        {
+            "name": "Men Clothig & Fashion",
+            "subcategory": [
+                "Pent Coats",
+                "T-Shirts",
+                "Watches",
+                "Caps"
+            ]
+        },
+        {
+            "name": "Computer & Accessories",
+            "subcategory": [
+                "DELL & HP Laptops",
+                "Android Mobiles",
+                "Top Brands"
+            ]
+        },
+        {
+            "name": "Automobile",
+            "subcategory": [
+                "Brand New Cars",
+                "Used Cars",
+                "Trucks",
+                "Motor Bikes"
+            ]
+        },
+        {
+            "name": "Kids & Toys",
+            "subcategory": [
+                "Card Games",
+                "Ourdoor Toys",
+                "Dolls",
+                "Toy Vehicles"
+            ]
+        },
+        {
+            "name": "Sports",
+            "subcategory": [
+                "Team Sports",
+                "Outdoor Sports",
+                "Individual Sports",
+                "Indoor Sports"
+            ]
+        },
+        {
+            "name": "Jewelery",
+            "subcategory": [
+                "Fine Jewelery",
+                "Fashion Jewelery",
+                "Bridal Jewelery"
+            ]
+        },
+        {
+            "name": "Cellphone & Tab",
+            "subcategory": [
+                "Smartphones",
+                "Tabs",
+                "Gaming Phones"
+            ]
+        },
+        {
+            "name": "Furniture",
+            "subcategory": [
+                "Living Room Furniture",
+                "Bedroom Furniture",
+                "Home & Office Furniture",
+                "Dining Room Furniture"
+            ]
+        }
+    ]
+}
