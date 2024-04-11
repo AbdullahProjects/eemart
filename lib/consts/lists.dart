@@ -32,7 +32,7 @@ const featuredProductsImg = [imgP1, imgP2, imgP3, imgP4, imgP5, imgP6];
 
 // category screen
 const categoryList = [
-  "Women Clothing",
+  "Women Clothing & Fashion",
   "Men Clothig & Fashion",
   "Computer & Accessories",
   "Automobile",

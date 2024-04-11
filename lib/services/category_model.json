@@ -1,10 +1,10 @@
 {
     "categories": [
         {
-            "name": "Women Clothing",
+            "name": "Women Fashion",
             "subcategory": [
                 "Weddings & Events",
-                "Tops & Sets",
+                "Ear Tops & Jewelery Sets",
                 "Watches"
             ]
         },
@@ -21,6 +21,7 @@
             "name": "Computer & Accessories",
             "subcategory": [
                 "DELL & HP Laptops",
+                "Computer Tools",
                 "Android Mobiles",
                 "Top Brands"
             ]
@@ -49,7 +50,7 @@
                 "Team Sports",
                 "Outdoor Sports",
                 "Individual Sports",
-                "Indoor Sports"
+                "Protection"
             ]
         },
         {

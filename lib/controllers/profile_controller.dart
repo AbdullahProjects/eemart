@@ -65,8 +65,6 @@ class ProfileController extends GetxController {
 
     await currentUser!.reauthenticateWithCredential(credential).then((value) {
       currentUser!.updatePassword(newPassword);
-    }).catchError((error) {
-      print(error.toString());
     });
   }
 }
