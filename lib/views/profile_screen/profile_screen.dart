@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/consts/lists.dart';
 import 'package:eemart/controllers/auth_controller.dart';
+// import 'package:eemart/controllers/chats_controller.dart';
 import 'package:eemart/controllers/profile_controller.dart';
 import 'package:eemart/services/firestore_services.dart';
 import 'package:eemart/views/auth_screen/login_screen.dart';
@@ -16,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProfileController());
+    // var chatController = Get.put(ChatsController());
 
     return bgWidget(
         child: Scaffold(
@@ -92,14 +94,18 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               5.widthBox,
+                              // Logout button
                               OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                       side: const BorderSide(
                                           color: Colors.white, width: 1)),
                                   onPressed: () async {
-                                    await Get.put(AuthController()).signOutMethod(context);
-                                    
+                                    await Get.put(AuthController())
+                                        .signOutMethod(context);
                                     Get.offAll(() => const LoginScreen());
+                                    // if (chatController.chatDocId != null) {
+                                    //   chatController.chatDocId = null;
+                                    // }
                                   },
                                   child: "Logout"
                                       .text

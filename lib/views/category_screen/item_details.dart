@@ -1,6 +1,7 @@
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/consts/lists.dart';
 import 'package:eemart/controllers/product_controller.dart';
+import 'package:eemart/views/chat_screen/chat_screen.dart';
 import 'package:eemart/views/home_screen/components/feature_product.dart';
 import 'package:eemart/widgets_common/our_button.dart';
 import 'package:get/get.dart';
@@ -123,7 +124,12 @@ class ItemDetails extends StatelessWidget {
                                 Icons.message_rounded,
                                 color: darkFontGrey,
                               ),
-                            )
+                            ).onTap(() {
+                              Get.to(() => const ChatScreen(), arguments: [
+                                data["p_seller"],
+                                data["vendor_id"]
+                              ]);
+                            })
                           ],
                         )
                             .box

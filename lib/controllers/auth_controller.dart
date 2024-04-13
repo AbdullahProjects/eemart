@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   var isLoading = false.obs;
-  // text controllers
+  // login text controllers
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  // chats controller
 
   // login method
   Future<UserCredential?> loginMethod({context}) async {
@@ -17,6 +18,7 @@ class AuthController extends GetxController {
     try {
       userCredential = await auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      currentUser = userCredential.user;
     } on FirebaseAuthException catch (e) {
       VxToast.show(context,
           msg: e.toString(), bgColor: redColor, textColor: whiteColor);
@@ -26,33 +28,36 @@ class AuthController extends GetxController {
 
   // sign-up method
   Future<UserCredential?> signUpMethod({context, email, password}) async {
-    UserCredential? userCredentiall;
+    UserCredential? userCredential;
 
     try {
-      await auth.createUserWithEmailAndPassword(
+      userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      currentUser = userCredential.user;
     } on FirebaseAuthException catch (e) {
       VxToast.show(context,
           msg: e.toString(), bgColor: redColor, textColor: whiteColor);
     }
-    return userCredentiall;
+    return userCredential;
   }
 
   // store data method
   storeUserData({name, password, email}) async {
-    DocumentReference store =
-        firestore.collection(usersCollection).doc(currentUser!.uid);
-
-    store.set({
-      'name': name,
-      'password': password,
-      'email': email,
-      'imageURL': '',
-      'id': currentUser!.uid,
-      'cart_count': "00",
-      'order_count': "00",
-      'wishlist_count': "00",
-    });
+    if (currentUser != null) {
+      DocumentReference store =
+          firestore.collection(usersCollection).doc(currentUser!.uid);
+      // Set the user data with the correct uid
+      await store.set({
+        'name': name,
+        'password': password,
+        'email': email,
+        'imageURL': '',
+        'id': currentUser!.uid,
+        'cart_count': "00",
+        'order_count': "00",
+        'wishlist_count': "00",
+      });
+    }
   }
 
   // signout method

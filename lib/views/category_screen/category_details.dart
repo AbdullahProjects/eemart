@@ -23,7 +23,9 @@ class CategoryDetails extends StatelessWidget {
                 Icons.arrow_back,
                 color: whiteColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+              },
             ),
             title: title!.text.fontFamily(bold).white.make(),
           ),

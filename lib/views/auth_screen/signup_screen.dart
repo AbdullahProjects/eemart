@@ -1,5 +1,6 @@
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/controllers/auth_controller.dart';
+import 'package:eemart/controllers/chats_controller.dart';
 import 'package:eemart/views/home_screen/home.dart';
 import 'package:eemart/widgets_common/applogo_widget.dart';
 import 'package:eemart/widgets_common/bg_widget.dart';
@@ -108,26 +109,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 // enable circular progress indicator before starting loading process
                                 controller.isLoading(true);
                                 try {
-                                  await controller
-                                      .signUpMethod(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    context: context,
-                                  )
-                                      .then((value) {
-                                    return controller.storeUserData(
+                                  await controller.signUpMethod(
                                       email: emailController.text,
                                       password: passwordController.text,
-                                      name: nameController.text,
-                                    );
+                                      context: context,
+                                  ).then((value) {
+                                    return controller.storeUserData(
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        name: nameController.text);
                                   }).then((value) {
+
                                     VxToast.show(context,
                                         msg: "Logged in successfully",
                                         bgColor: redColor,
                                         textColor: whiteColor);
                                     Get.offAll(() => const Home());
                                   });
-                                } catch (e) {
+                                } catch (e) { 
                                   auth.signOut();
                                   VxToast.show(context, msg: e.toString());
                                   controller.isLoading(false);
