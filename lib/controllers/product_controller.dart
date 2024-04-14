@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/models/category_model.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ class ProductController extends GetxController {
   var colorIndex = 0.obs;
   var totalPrice = 0.obs;
   var subcat = [];
+  var isFav = false.obs;
 
   getSubCategory(title) async {
     subcat.clear();
@@ -67,6 +69,31 @@ class ProductController extends GetxController {
       return "${str.substring(0, 30)}..";
     } else {
       return str;
+    }
+  }
+
+  // add and remove products from wishlist
+  addToWishlist(docId, context) async {
+    await firestore.collection(productsCollection).doc(docId).set({
+      'p_wishlist': FieldValue.arrayUnion([currentUser!.uid])
+    }, SetOptions(merge: true));
+    isFav(true);
+    VxToast.show(context, msg: "Add to wishlist");
+  }
+
+  removeToWishlist(docId, context) async {
+    await firestore.collection(productsCollection).doc(docId).set({
+      'p_wishlist': FieldValue.arrayRemove([currentUser!.uid])
+    }, SetOptions(merge: true));
+    isFav(false);
+    VxToast.show(context, msg: "Remove from wishlist");
+  }
+
+  checkIfFav(data) async {
+    if (data['p_wishlist'].contains(currentUser!.uid)) {
+      isFav(true);
+    } else {
+      isFav(false);
     }
   }
 }

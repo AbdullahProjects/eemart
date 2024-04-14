@@ -120,6 +120,9 @@ class CategoryDetails extends StatelessWidget {
                                     .padding(const EdgeInsets.all(12))
                                     .make()
                                     .onTap(() {
+                                  // check product is in wishlist or not
+                                  controller.checkIfFav(data[index]);
+                                  // going towards item details
                                   Get.to(() => ItemDetails(
                                         title: "${data[index]['p_name']}",
                                         data: data[index],

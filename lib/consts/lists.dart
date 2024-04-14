@@ -65,3 +65,7 @@ const itemDetailButtonList = [
 // profile screen
 const profileButtonList = ["My orders", "My wishlist", "Messages"];
 const profileButtonIcon = [icOrder, icOrders, icMessages];
+
+// payment screen
+const paymentMethodList = [imgPaypal, imgStripe, imgCod];
+const paymentMethods = ["Paypal", "Stripe", "Cash on delivery"];

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/controllers/cart_controller.dart';
 import 'package:eemart/services/firestore_services.dart';
+import 'package:eemart/views/cart_screen/shipping_screen.dart';
 import 'package:eemart/widgets_common/loader.dart';
 import 'package:eemart/widgets_common/our_button.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,19 @@ class CartScreen extends StatelessWidget {
     var controller = Get.put(CartController());
 
     return Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 8, right: 3, left: 3),
+          child: SizedBox(
+            height: 55,
+            child: OurButton(
+                title: "Proceed to shipping",
+                textcolor: whiteColor,
+                colour: redColor,
+                onPress: () {
+                  Get.to(() => const ShippingDetails());
+                }),
+          ),
+        ),
         backgroundColor: whiteColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -96,15 +110,7 @@ class CartScreen extends StatelessWidget {
                           .width(context.screenWidth - 60)
                           .roundedSM
                           .make(),
-                      10.heightBox,
-                      SizedBox(
-                        width: context.screenWidth - 60,
-                        child: OurButton(
-                            title: "Proceed to shipping",
-                            textcolor: whiteColor,
-                            colour: redColor,
-                            onPress: () {}),
-                      )
+                      10.heightBox
                     ],
                   ),
                 );

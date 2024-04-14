@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/controllers/chats_controller.dart';
+import 'package:eemart/services/firestore_services.dart';
 import 'package:eemart/views/chat_screen/components/sender_message.dart';
+import 'package:eemart/widgets_common/loader.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -14,7 +17,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title: "Chatting with Seller"
+        title: "Talk with: ${controller.friendName}"
             .text
             .color(darkFontGrey)
             .fontFamily(semibold)
@@ -24,10 +27,44 @@ class ChatScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Expanded(
-                child: ListView(
-              children: [senderMessage(), senderMessage()],
-            )),
+            Obx(
+              () => controller.isLoading.value
+                  ? Center(
+                      child: loadingIndicator(),
+                    )
+                  : Expanded(
+                      child: StreamBuilder(
+                          stream: FirestoreServices.getChatMessages(
+                              controller.chatDocId.toString()),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: loadingIndicator(),
+                              );
+                            } else if (snapshot.data!.docs.isEmpty) {
+                              return Center(
+                                  child: "Send a message..."
+                                      .text
+                                      .color(darkFontGrey)
+                                      .make());
+                            } else {
+                              return ListView(
+                                children: snapshot.data!.docs
+                                    .mapIndexed((currentValue, index) {
+                                  var data = snapshot.data!.docs[index];
+
+                                  return Align(
+                                    alignment: data['uid'] == currentUser!.uid
+                                        ? Alignment.centerRight
+                                        : Alignment.centerLeft,
+                                    child: senderMessage(data),
+                                  );
+                                }).toList(),
+                              );
+                            }
+                          })),
+            ),
             10.heightBox,
 
             // button;
