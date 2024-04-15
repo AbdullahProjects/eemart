@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eemart/consts/consts.dart';
 import 'package:eemart/consts/lists.dart';
 import 'package:eemart/controllers/auth_controller.dart';
-// import 'package:eemart/controllers/chats_controller.dart';
 import 'package:eemart/controllers/profile_controller.dart';
+import 'package:eemart/order_screen/order_screen.dart';
 import 'package:eemart/services/firestore_services.dart';
 import 'package:eemart/views/auth_screen/login_screen.dart';
+import 'package:eemart/views/chat_screen/messages_screen.dart';
 import 'package:eemart/views/profile_screen/components/detail_Card.dart';
 import 'package:eemart/views/profile_screen/edit_profile_screen.dart';
 import 'package:eemart/widgets_common/bg_widget.dart';
+import 'package:eemart/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,7 +19,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProfileController());
-    // var chatController = Get.put(ChatsController());
 
     return bgWidget(
         child: Scaffold(
@@ -142,6 +143,19 @@ class ProfileScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
+                                    onTap: () {
+                                      switch (index) {
+                                        case 0:
+                                          Get.to(() => const OrderDetails());
+                                          break;
+                                        case 1:
+                                          Get.to(() => const WishlistDetails());
+                                          break;
+                                        case 2:
+                                          Get.to(() => const MessagesDetails());
+                                          break;
+                                      }
+                                    },
                                     leading: Image.asset(
                                       profileButtonIcon[index],
                                       width: 22,

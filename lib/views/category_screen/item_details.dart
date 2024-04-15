@@ -325,6 +325,7 @@ class ItemDetails extends StatelessWidget {
                       title: data['p_name'],
                       img: data['p_imgs'][0],
                       sellername: data['p_seller'],
+                      vendorID: data['vendor_id'],
                       color: data['p_colors'][controller.colorIndex.value],
                       qty: controller.quantity.value,
                       tprice: controller.totalPrice.value,
