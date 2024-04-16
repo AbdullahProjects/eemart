@@ -49,7 +49,7 @@ class ItemDetails extends StatelessWidget {
                     }
                   },
                   icon: Icon(
-                    Icons.favorite_outline,
+                    Icons.favorite,
                     color: controller.isFav.value ? redColor : darkFontGrey,
                   )),
             )
@@ -320,17 +320,21 @@ class ItemDetails extends StatelessWidget {
                   textcolor: whiteColor,
                   colour: redColor,
                   onPress: () {
-                    controller.addToCart(
-                      context: context,
-                      title: data['p_name'],
-                      img: data['p_imgs'][0],
-                      sellername: data['p_seller'],
-                      vendorID: data['vendor_id'],
-                      color: data['p_colors'][controller.colorIndex.value],
-                      qty: controller.quantity.value,
-                      tprice: controller.totalPrice.value,
-                    );
-                    VxToast.show(context, msg: "Added to Cart");
+                    if (controller.quantity.value > 0) {
+                      controller.addToCart(
+                        context: context,
+                        title: data['p_name'],
+                        img: data['p_imgs'][0],
+                        sellername: data['p_seller'],
+                        vendorID: data['vendor_id'],
+                        color: data['p_colors'][controller.colorIndex.value],
+                        qty: controller.quantity.value,
+                        tprice: controller.totalPrice.value,
+                      );
+                      VxToast.show(context, msg: "Added to Cart");
+                    } else {
+                      VxToast.show(context, msg: "Minimum 1 quantity required");
+                    }
                   }),
             ),
             5.heightBox

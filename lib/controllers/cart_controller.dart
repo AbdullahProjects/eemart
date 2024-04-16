@@ -25,6 +25,7 @@ class CartController extends GetxController {
   late dynamic productSnapshot;
   var products = [];
   var placingOrder = false.obs;
+  // var proceedShipping = true.obs;
 
   changePaymentIndex(index) {
     paymentIndex.value = index;

@@ -24,7 +24,11 @@ class CartScreen extends StatelessWidget {
                 textcolor: whiteColor,
                 colour: redColor,
                 onPress: () {
-                  Get.to(() => const ShippingDetails());
+                  if (controller.totalP.value == 0) {
+                    VxToast.show(context, msg: "Cart is Empty");
+                  } else {
+                    Get.to(() => const ShippingDetails());
+                  }
                 }),
           ),
         ),

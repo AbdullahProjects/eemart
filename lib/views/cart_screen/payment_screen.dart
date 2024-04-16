@@ -14,30 +14,30 @@ class PaymentDetails extends StatelessWidget {
     // cart controller
     var controller = Get.find<CartController>();
 
-    return Obx(
-      () => Scaffold(
+    return Scaffold(
         backgroundColor: whiteColor,
         bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(bottom: 8, right: 3, left: 3),
-            child: SizedBox(
-                height: 55,
-                // button; continue to payment method
-                child: controller.placingOrder.value
-                    ? Center(child: loadingIndicator())
-                    : OurButton(
-                        title: "Place my order",
-                        textcolor: whiteColor,
-                        colour: redColor,
-                        onPress: () async {
-                          await controller.placeMyOrder(
-                              orderPaymentMethod:
-                                  paymentMethods[controller.paymentIndex.value],
-                              totalAmount: controller.totalP.value);
-                          await controller.clearCart();
-                          VxToast.show(context,
-                              msg: "Order placed successfully");
-                          Get.offAll(() => const Home());
-                        }))),
+            child: Obx(() => SizedBox(
+                  height: 55,
+                  // button; continue to payment method
+                  child: controller.placingOrder.value
+                      ? Center(child: loadingIndicator())
+                      : OurButton(
+                          title: "Place my order",
+                          textcolor: whiteColor,
+                          colour: redColor,
+                          onPress: () async {
+                            await controller.placeMyOrder(
+                                orderPaymentMethod:
+                                    paymentMethods[controller.paymentIndex.value],
+                                totalAmount: controller.totalP.value);
+                            await controller.clearCart();
+                            VxToast.show(context,
+                                msg: "Order placed successfully");
+                            Get.offAll(() => const Home());
+                          })),
+            )),
         appBar: AppBar(
           title: "Choose Payment Method"
               .text
@@ -123,7 +123,6 @@ class PaymentDetails extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
