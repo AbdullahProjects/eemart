@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   changeScreen() {
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 3), () {
       // if user already login then go to Home Screen, otherwise go to Login Screen
       auth.authStateChanges().listen((User? user) {
         if (user == null) {

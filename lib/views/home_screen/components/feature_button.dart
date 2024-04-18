@@ -1,4 +1,6 @@
 import 'package:eemart/consts/consts.dart';
+import 'package:eemart/views/category_screen/category_details.dart';
+import 'package:get/get.dart';
 
 Widget FeaturedButton({String? title, icon}) {
   return Row(
@@ -20,5 +22,8 @@ Widget FeaturedButton({String? title, icon}) {
       .shadowMd
       .outerShadowSm
       .white
-      .make();
+      .make()
+      .onTap(() {
+    Get.to(() => CategoryDetails(title: title));
+  });
 }

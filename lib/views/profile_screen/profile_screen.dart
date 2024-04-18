@@ -10,6 +10,7 @@ import 'package:eemart/views/chat_screen/messages_screen.dart';
 import 'package:eemart/views/profile_screen/components/detail_Card.dart';
 import 'package:eemart/views/profile_screen/edit_profile_screen.dart';
 import 'package:eemart/widgets_common/bg_widget.dart';
+import 'package:eemart/widgets_common/loader.dart';
 import 'package:eemart/wishlist_screen/wishlist_screen.dart';
 import 'package:get/get.dart';
 
@@ -118,26 +119,41 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         // cards
                         // 20.heightBox,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              DetailCart(
-                                  width: context.screenWidth / 3.5,
-                                  count: data["cart_count"],
-                                  title: "in your cart"),
-                              DetailCart(
-                                  width: context.screenWidth / 3.5,
-                                  count: data["wishlist_count"],
-                                  title: "your wishlist"),
-                              DetailCart(
-                                  width: context.screenWidth / 3.5,
-                                  count: data["order_count"],
-                                  title: "your orders")
-                            ],
-                          ),
-                        ),
+                        FutureBuilder(
+                            future: FirestoreServices.getCounts(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: loadingIndicator(),
+                                );
+                              } else {
+                                var countData = snapshot.data;
+
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      DetailCart(
+                                          width: context.screenWidth / 3.5,
+                                          count: countData[0].toString(),
+                                          title: "your cart"),
+                                      DetailCart(
+                                          width: context.screenWidth / 3.5,
+                                          count: countData[1].toString(),
+                                          title: "your wishlist"),
+                                      DetailCart(
+                                          width: context.screenWidth / 3.5,
+                                          count: countData[2].toString(),
+                                          title: "your orders")
+                                    ],
+                                  ),
+                                );
+                              }
+                            }),
                         // buttons list
                         ListView.separated(
                                 shrinkWrap: true,

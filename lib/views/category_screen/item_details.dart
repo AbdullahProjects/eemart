@@ -32,7 +32,7 @@ class ItemDetails extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
           ),
           title: controller
-              .shortenString(title!)
+              .shortenString2(title!)
               .text
               .color(darkFontGrey)
               .fontFamily(bold)

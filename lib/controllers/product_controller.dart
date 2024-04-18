@@ -81,6 +81,14 @@ class ProductController extends GetxController {
     }
   }
 
+  String shortenString3(String str) {
+    if (str.length > 12) {
+      return "${str.substring(0, 12)}..";
+    } else {
+      return str;
+    }
+  }
+
   // add and remove products from wishlist
   addToWishlist(docId, context) async {
     await firestore.collection(productsCollection).doc(docId).set({
@@ -105,4 +113,5 @@ class ProductController extends GetxController {
       isFav(false);
     }
   }
+  
 }

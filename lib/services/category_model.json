@@ -1,7 +1,7 @@
 {
     "categories": [
         {
-            "name": "Women Fashion",
+            "name": "Women Clothing & Fashion",
             "subcategory": [
                 "Weddings & Events",
                 "Ear Tops & Jewelery Sets",
@@ -9,11 +9,11 @@
             ]
         },
         {
-            "name": "Men Clothig & Fashion",
+            "name": "Men Clothing & Fashion",
             "subcategory": [
                 "Pent Coats",
                 "T-Shirts",
-                "Watches",
+                "Men Watches",
                 "Caps"
             ]
         },

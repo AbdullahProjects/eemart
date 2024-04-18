@@ -9,8 +9,8 @@ const secondSlidersList = [imgSs1, imgSs2, imgSs3, imgSs4];
 // home page: featured buttons
 const featuredImg1 = [imgS1, imgS2, imgS3];
 const featuredImg2 = [imgS4, imgS5, imgS6];
-const featuredTitle1 = [womenDress, girlsDress, girlsWatches];
-const featuredTitle2 = [mobilePhone, boysGlasses, tShirts];
+const featuredTitle1 = ["Women Clothing & Fashion", "Furniture", "Automobile"];
+const featuredTitle2 = ["Sports", boysGlasses, tShirts];
 
 const featuredProducts = [
   "Laptop 4GB RAM",
@@ -33,7 +33,7 @@ const featuredProductsImg = [imgP1, imgP2, imgP3, imgP4, imgP5, imgP6];
 // category screen
 const categoryList = [
   "Women Clothing & Fashion",
-  "Men Clothig & Fashion",
+  "Men Clothing & Fashion",
   "Computer & Accessories",
   "Automobile",
   "Kids & Toys",

@@ -7,14 +7,34 @@ import 'package:eemart/widgets_common/bg_widget.dart';
 import 'package:eemart/widgets_common/loader.dart';
 import 'package:get/get.dart';
 
-class CategoryDetails extends StatelessWidget {
+class CategoryDetails extends StatefulWidget {
   final String? title;
   const CategoryDetails({super.key, required this.title});
 
   @override
-  Widget build(BuildContext context) {
-    var controller = Get.find<ProductController>();
+  State<CategoryDetails> createState() => _CategoryDetailsState();
+}
 
+class _CategoryDetailsState extends State<CategoryDetails> {
+  @override
+  void initState() {
+    super.initState();
+    switchCategory(widget.title);
+  }
+
+  switchCategory(title) {
+    if (controller.subcat.contains(title)) {
+      productMethod = FirestoreServices.getSubCategory(title);
+    } else {
+      productMethod = FirestoreServices.getProducts(title);
+    }
+  }
+
+  var controller = Get.find<ProductController>();
+  dynamic productMethod;
+
+  @override
+  Widget build(BuildContext context) {
     return bgWidget(
       child: Scaffold(
           appBar: AppBar(
@@ -27,54 +47,59 @@ class CategoryDetails extends StatelessWidget {
                 Get.back();
               },
             ),
-            title: title!.text.fontFamily(bold).white.make(),
+            title: widget.title!.text.fontFamily(bold).white.make(),
           ),
-          body: StreamBuilder(
-              stream: FirestoreServices.getProducts(title),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: loadingIndicator());
-                } else if (snapshot.data!.docs.isEmpty) {
-                  return Center(
-                    child: "No products found in this category"
-                        .text
-                        .color(darkFontGrey)
-                        .make(),
-                  );
-                } else {
-                  var data = snapshot.data!.docs;
-
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                                controller.subcat.length,
-                                (index) => "${controller.subcat[index]}"
-                                    .text
-                                    .fontFamily(semibold)
-                                    .color(darkFontGrey)
-                                    .make()
-                                    .box
-                                    .white
-                                    .height(50)
-                                    .padding(const EdgeInsets.symmetric(
-                                        horizontal: 10))
-                                    .margin(const EdgeInsets.symmetric(
-                                        horizontal: 4))
-                                    .roundedSM
-                                    .alignment(Alignment.center)
-                                    .make()),
-                          ),
+          body: Column(
+            children: [
+              SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                      controller.subcat.length,
+                      (index) => "${controller.subcat[index]}"
+                              .text
+                              .fontFamily(semibold)
+                              .color(darkFontGrey)
+                              .make()
+                              .box
+                              .white
+                              .height(50)
+                              .padding(
+                                  const EdgeInsets.symmetric(horizontal: 10))
+                              .margin(const EdgeInsets.symmetric(horizontal: 4))
+                              .roundedSM
+                              .alignment(Alignment.center)
+                              .make()
+                              .onTap(() {
+                            switchCategory("${controller.subcat[index]}");
+                            setState(() {});
+                          })),
+                ),
+              ),
+              20.heightBox,
+              StreamBuilder(
+                  stream: productMethod,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Expanded(child: Center(child: loadingIndicator()));
+                    } else if (snapshot.data!.docs.isEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Expanded(
+                          child: "No products found in this category"
+                              .text
+                              .color(darkFontGrey)
+                              .makeCentered(),
                         ),
-                        20.heightBox,
-                        Expanded(
+                      );
+                    } else {
+                      var data = snapshot.data!.docs;
+
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Expanded(
                           child: GridView.builder(
                               physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
@@ -129,12 +154,12 @@ class CategoryDetails extends StatelessWidget {
                                       ));
                                 });
                               }),
-                        )
-                      ],
-                    ),
-                  );
-                }
-              })),
+                        ),
+                      );
+                    }
+                  }),
+            ],
+          )),
     );
   }
 }

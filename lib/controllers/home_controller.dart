@@ -25,6 +25,8 @@ class HomeController extends GetxController {
       }
     });
     username = n;
-    // print(username);
   }
+
+  // search button
+  var searchController = TextEditingController();
 }
